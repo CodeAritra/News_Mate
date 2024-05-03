@@ -9,37 +9,12 @@ function NewsComponent({ country, category, pagesize }) {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
 
-  {/*const fetchNews = useCallback(async () => {
-    try {
-      const data = await axios.get(
-        `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=eb4c3429fa9b4619a3138d3db2223b30&page=${page}&pagesize=${pagesize}`
-      );
-
-      console.log(data);
-      console.log(data.data.totalResults);
-      console.log(data.data.articles.length);
-      setTotal(data.data.totalResults);
-      setNews(data.data.articles);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  }, [page]);
-
-  useEffect(() => {
-    fetchNews();
-  }, [page, fetchNews]);*/}
-
   useEffect(()=>{
     const fetchNews = async()=>{
       try {
         const data = await axios.get(
           `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&apiKey=eb4c3429fa9b4619a3138d3db2223b30&page=${page}&pagesize=${pagesize}`
         );
-  
-        console.log(data);
-        console.log(data.data.totalResults);
-        console.log(data.data.articles.length);
         setTotal(data.data.totalResults);
         setNews(data.data.articles);
         setLoading(false);
@@ -56,11 +31,9 @@ function NewsComponent({ country, category, pagesize }) {
   },[news])
 
   const handleprev = () => {
-    console.log("prev");
     setPage(page - 1);
   };
   const handlenext = () => {
-    setPage(page + 1);
     console.log("next");
   };
 
@@ -70,12 +43,6 @@ function NewsComponent({ country, category, pagesize }) {
         <h2 className="text-2xl  font-bold text-gray-800 mb-7 mt-14 text-center md:text-4xl">
           Top {category} News
         </h2>
-        {/* <InfiniteScroll
-          dataLength={news.length}
-          next={fetchMoreData}
-          hasMore={news.length !== total}
-          loader={<h6>Loading...</h6>}
-        >*/}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-x-28 lg:gap-x-12 ">
           {news.map((article, index) => (
             <NewsItem
@@ -91,7 +58,6 @@ function NewsComponent({ country, category, pagesize }) {
             />
           ))}
         </div>
-        {/*</InfiniteScroll>*/}
         <div className="flex justify-between items-center md:mx-9 mt-3">
           <div>
             {page > 1 && (
